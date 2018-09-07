@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 using WalletKata.Wallets;
 using WalletKata.Users;
 using WalletKata.Exceptions;
@@ -20,9 +21,9 @@ namespace WalletKata.Test
         public void GetWalletsByUser_LoggedUserNotFriend()
         {
 			WalletService service = new WalletService(this.GetMockedSession(true));
-            service.GetWalletsByUser(new User());
+			Assert.AreEqual(new List<Wallet>(), service.GetWalletsByUser(new User()));
         }
-
+        
         [Test]
         public void GetWalletsByUser_NoLoggedUser()
         {
