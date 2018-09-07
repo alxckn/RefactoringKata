@@ -18,15 +18,15 @@ namespace WalletKata.Users
         }
 
         public bool IsFriendWith(User person)
-		{
-			foreach (User friend in this.GetFriends())
+        {
+            foreach (User friend in this.GetFriends())
             {
                 if (friend.Equals(person))
                 {
-					return true;
+                    return true;
                 }
             }
-			return false;
-		}
+            return false;
+        }
     }
 }

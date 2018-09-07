@@ -9,32 +9,32 @@ namespace WalletKata.Test
 {
     public class WalletServiceTest
     {
-		private IUserSession GetMockedSession(bool withUser)
-		{
-			User loggedUser = withUser ? new User() : null;
-			var session = new Mock<IUserSession>();
+        private IUserSession GetMockedSession(bool withUser)
+        {
+            User loggedUser = withUser ? new User() : null;
+            var session = new Mock<IUserSession>();
             session.Setup(s => s.GetLoggedUser()).Returns(loggedUser);
-			return session.Object;
-		}
+            return session.Object;
+        }
 
         [Test]
         public void GetWalletsByUser_LoggedUserNotFriend()
         {
-			WalletService service = new WalletService(this.GetMockedSession(true));
-			Assert.AreEqual(new List<Wallet>(), service.GetWalletsByUser(new User()));
+            WalletService service = new WalletService(this.GetMockedSession(true));
+            Assert.AreEqual(new List<Wallet>(), service.GetWalletsByUser(new User()));
         }
-        
+
         [Test]
         public void GetWalletsByUser_NoLoggedUser()
         {
-			WalletService service = new WalletService(this.GetMockedSession(false));
-			Assert.Throws<UserNotLoggedInException>(() => service.GetWalletsByUser(new User()));
+            WalletService service = new WalletService(this.GetMockedSession(false));
+            Assert.Throws<UserNotLoggedInException>(() => service.GetWalletsByUser(new User()));
         }
 
         [Test]
         public void GetWalletsByUser_NullFriend()
         {
-			WalletService service = new WalletService(this.GetMockedSession(true));
+            WalletService service = new WalletService(this.GetMockedSession(true));
             service.GetWalletsByUser(null);
         }
 
@@ -44,10 +44,9 @@ namespace WalletKata.Test
             IUserSession session = this.GetMockedSession(true);
             User loggedUser = session.GetLoggedUser();
             User friend = new User();
-            // here loggedUser is friend's friend but friend is not one of loggedUser's friends
             friend.AddFriend(loggedUser);
-			WalletService service = new WalletService(session);
-			Assert.Throws<ThisIsAStubException>(() => service.GetWalletsByUser(friend));
+            WalletService service = new WalletService(session);
+            Assert.Throws<ThisIsAStubException>(() => service.GetWalletsByUser(friend));
         }
     }
 }

@@ -6,23 +6,23 @@ namespace WalletKata.Wallets
 {
     public class WalletService
     {
-		private readonly IUserSession userSession;
+        private readonly IUserSession userSession;
 
         public WalletService(IUserSession userSession)
-		{
-			this.userSession = userSession;
-		}
+        {
+            this.userSession = userSession;
+        }
 
         public List<Wallet> GetWalletsByUser(User user)
         {
             User loggedUser = this.userSession.GetLoggedUser();
-			if (loggedUser == null) {
-				throw new UserNotLoggedInException();
-			}
+            if (loggedUser == null) {
+                throw new UserNotLoggedInException();
+            }
 
-			return user != null && user.IsFriendWith(loggedUser) ? 
-				       WalletDAO.FindWalletsByUser(user) : 
-				       new List<Wallet>();
-        }         
+            return user != null && user.IsFriendWith(loggedUser) ?
+                WalletDAO.FindWalletsByUser(user) :
+                new List<Wallet>();
+        }
     }
 }
