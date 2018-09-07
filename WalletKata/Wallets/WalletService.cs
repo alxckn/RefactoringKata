@@ -6,10 +6,17 @@ namespace WalletKata.Wallets
 {
     public class WalletService
     {
+		private readonly IUserSession userSession;
+
+        public WalletService(IUserSession userSession)
+		{
+			this.userSession = userSession;
+		}
+
         public List<Wallet> GetWalletsByUser(User user)
         {
             List<Wallet> walletList = new List<Wallet>();
-            User loggedUser = UserSession.GetInstance().GetLoggedUser();
+            User loggedUser = this.userSession.GetLoggedUser();
             bool isFriend = false;
 
             if (loggedUser != null)
